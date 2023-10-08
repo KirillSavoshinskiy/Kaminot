@@ -1,0 +1,43 @@
+<div class="text-center border border-5 rounded m-5">
+  <div class="border-bottom border-3 pb-2">
+    <h4>Payment systems list</h4>
+    <nz-select
+      style="width: 100px"
+      [(ngModel)]="currencyTypeFilter"
+      (ngModelChange)="filterChanged()"
+    >
+      <nz-option nzValue="All" nzLabel="All"></nz-option>
+      <nz-option nzValue="Crypto" nzLabel="Crypto"></nz-option>
+      <nz-option nzValue="Not Crypto" nzLabel="Not Crypto"></nz-option>
+    </nz-select>
+  </div>
+
+  <div nz-row class="border-bottom mt-2">
+    <div nz-col nzSpan="5"><h5>Name</h5></div>
+    <div nz-col nzSpan="5"><h5>Description</h5></div>
+    <div nz-col nzSpan="6"><h5>Currencies</h5></div>
+    <div nz-col nzSpan="6"><h5>Actions</h5></div>
+  </div>
+  <ng-container *ngFor="let system of paymentSystemsList">
+    <div nz-row class="mt-1 border-bottom">
+      <div nz-col nzSpan="5" class="border-end">{{ system.name }}</div>
+      <div nz-col nzSpan="5" class="border-end">{{ system.description }}</div>
+      <div nz-col nzSpan="6" class="border-end">
+        <ng-container *ngFor="let curr of system.currency">
+          {{ curr.name }}
+        </ng-container>
+      </div>
+      <div nz-col nzSpan="6">
+        <div>
+          <a nz-button nzType="primary" routerLink="/creation" class="m-1"
+            >Create payment</a
+          >
+          <a nz-button nzType="primary" routerLink="/payments-list" class="m-1"
+            >List of payments</a
+          >
+          <button nz-button nzType="primary" nzDanger>Delete</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
