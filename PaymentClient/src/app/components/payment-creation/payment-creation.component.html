@@ -1,0 +1,80 @@
+<form
+  class="border border-5 rounded m-5 p-2"
+  style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+  "
+  nz-form
+  [formGroup]="paymentForm"
+  (ngSubmit)="submitForm()"
+>
+  <h4 class="border-bottom border-3">Payment creation</h4>
+  <div>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="10" nzRequired nzFor="paymentName">Payment Name</nz-form-label>
+      <nz-form-control nzErrorTip="Please input Payment Name!">
+        <input
+          id="paymentName"
+          formControlName="paymentName"
+          nz-input
+          placeholder="Payment Name"
+        />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="10" nzRequired nzFor="description">Description</nz-form-label>
+      <nz-form-control nzErrorTip="Please input your Description!">
+        <input
+          id="description"
+          formControlName="description"
+          nz-input
+          placeholder="Description"
+        />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="10" nzRequired nzFor="sum">Sum</nz-form-label>
+      <nz-form-control nzErrorTip="Please input your Sum!">
+        <input id="sum" formControlName="sum" nz-input placeholder="Sum" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="10" nzRequired nzFor="currency">Currency</nz-form-label>
+      <nz-form-control nzErrorTip="Select currency!">
+        <nz-select
+          id="currency"
+          formControlName="currency"
+          nz-input
+          nzPlaceHolder="Currency"
+        >
+          <nz-option nzValue="USD" nzLabel="USD"></nz-option>
+          <nz-option nzValue="BYN" nzLabel="BYN"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="10" nzRequired nzFor="state">State</nz-form-label>
+      <nz-form-control id="state" nzErrorTip="Please choose the State!">
+        <nz-select formControlName="state" nz-input nzPlaceHolder="State">
+          <nz-option nzValue="Active" nzLabel="Active"></nz-option>
+          <nz-option nzValue="In progress" nzLabel="In progress"></nz-option>
+          <nz-option nzValue="Finished" nzLabel="Finished"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button nzType="primary" [disabled]="!paymentForm.valid">
+        Create
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
