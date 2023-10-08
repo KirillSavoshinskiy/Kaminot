@@ -1,0 +1,28 @@
+<div class="border border-5 rounded m-5 p-2">
+  <div class="text-center border-bottom border-3 pb-2">
+    <h4>Payments list</h4>
+    <nz-select
+      style="width: 100px"
+      [(ngModel)]="paymentsStateFilter"
+      (ngModelChange)="filterChanged()"
+    >
+      <nz-option nzValue="All" nzLabel="All"></nz-option>
+      <nz-option nzValue="Active" nzLabel="Active"></nz-option>
+      <nz-option nzValue="In progress" nzLabel="In progress"></nz-option>
+      <nz-option nzValue="Finished" nzLabel="Finished"></nz-option>
+    </nz-select>
+  </div>
+
+  <div nz-row [nzGutter]="8">
+    <ng-container *ngFor="let payment of payments">
+      <div nz-col [nzSpan]="6" class="mt-2">
+        <nz-card class="border border-2" nzTitle="{{ payment.name }}">
+          <p>Description: {{ payment.description }}</p>
+          <p>Sum: {{ payment.sum }} {{ payment.currency.name }}</p>
+          <p>State: {{ payment.status }}</p>
+          <button nz-button nzType="primary">Pay</button>
+        </nz-card>
+      </div>
+    </ng-container>
+  </div>
+</div>
