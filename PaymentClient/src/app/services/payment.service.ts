@@ -4,12 +4,13 @@ import { PaymentSystem } from '../models/payment-system';
 import { Observable } from 'rxjs';
 import { CreatePayment } from '../models/create-payment';
 import { Payment } from '../models/payment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaymentService {
-  private baseUrl = 'https://localhost:7290/';
+  private readonly baseUrl = environment.apiUrl;
   public pSystems: PaymentSystem[] = [];
 
   constructor(private readonly httpClient: HttpClient) {}
