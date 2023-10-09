@@ -6,8 +6,8 @@ import { PaymentSystemsListComponent } from './components/payment-systems-list/p
 
 const routes: Routes = [
   { path: '', component: PaymentSystemsListComponent },
-  { path: 'creation', component: PaymentCreationComponent },
-  { path: 'payments-list', component: PaymentsListComponent },
+  { path: 'creation/:id', component: PaymentCreationComponent },
+  { path: 'payments-list/:id', component: PaymentsListComponent },
 ];
 
 @NgModule({
