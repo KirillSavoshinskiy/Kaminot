@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Subscription } from 'rxjs';
 import { PaymentSystem } from 'src/app/models/payment-system';
 import { PaymentService } from 'src/app/services/payment.service';
@@ -14,16 +15,22 @@ export class PaymentSystemsListComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
 
-  constructor(private readonly paymentService: PaymentService) {}
+  constructor(
+    private readonly paymentService: PaymentService,
+    private readonly messageSevice: NzMessageService
+  ) {}
 
   ngOnInit(): void {
     this.subs.add(
-      this.paymentService
-        .getAllPaymentSystems()
-        .subscribe((res: PaymentSystem[]) => {
+      this.paymentService.getAllPaymentSystems().subscribe(
+        (res: PaymentSystem[]) => {
           this.paymentSystemsList = res;
           this.paymentService.pSystems = res;
-        })
+        },
+        (err) => {
+          this.messageSevice.error(err.error);
+        }
+      )
     );
   }
 

@@ -36,6 +36,9 @@ export class PaymentsListComponent implements OnInit, OnDestroy {
               this.paymentService.pSystems.find((s) => s.id === id)?.payments ??
               [];
             this.payments = this.initialPayments;
+          },
+          (err) => {
+            this.messageSevice.error(err.error);
           })
       );
     } else {

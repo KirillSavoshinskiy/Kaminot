@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Validators, NonNullableFormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Subscription } from 'rxjs';
 import { Currency } from 'src/app/models/currency';
 import { Payment } from 'src/app/models/payment';
@@ -27,21 +28,25 @@ export class PaymentCreationComponent implements OnDestroy {
     private fb: NonNullableFormBuilder,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly paymentService: PaymentService
+    private readonly paymentService: PaymentService,
+    private readonly messageSevice: NzMessageService
   ) {
     this.paymentSystemId = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!this.paymentService.pSystems.length) {
       this.subs.add(
-        this.paymentService
-          .getAllPaymentSystems()
-          .subscribe((res: PaymentSystem[]) => {
+        this.paymentService.getAllPaymentSystems().subscribe(
+          (res: PaymentSystem[]) => {
             this.paymentService.pSystems = res;
             this.currencies =
               this.paymentService.pSystems.find(
                 (p) => p.id === this.paymentSystemId
               )?.currencies ?? [];
-          })
+          },
+          (err) => {
+            this.messageSevice.error(err.error);
+          }
+        )
       );
     } else {
       this.currencies =
@@ -67,12 +72,17 @@ export class PaymentCreationComponent implements OnDestroy {
               (c) => c.id == this.paymentForm.get('currency')?.value
             ) ?? null,
         })
-        .subscribe((res: Payment) => {
-          this.paymentService.pSystems
-            .find((p) => (p.id === this.paymentSystemId))
-            ?.payments.push(res); 
-          this.router.navigate(['payments-list', this.paymentSystemId]);
-        })
+        .subscribe(
+          (res: Payment) => {
+            this.paymentService.pSystems
+              .find((p) => p.id === this.paymentSystemId)
+              ?.payments.push(res);
+            this.router.navigate(['payments-list', this.paymentSystemId]);
+          },
+          (err) => {
+            this.messageSevice.error(err.error);
+          }
+        )
     );
   }
 }
