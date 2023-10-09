@@ -5,6 +5,7 @@ using WebApplication1.Data;
 using WebApplication1.Data.Repositories;
 using WebApplication1.Endpoints.CreatePayment;
 using WebApplication1.Endpoints.GetAllPaymentSystems;
+using WebApplication1.Endpoints.ProcessPayment;
 using WebApplication1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,7 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IPaymentSystemRepository, PaymentSystemRepository>();
+builder.Services.AddScoped<IPaymentProcessService, PaymentProcessService>();
 
 var app = builder.Build();
 
@@ -46,7 +48,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection(); 
 app.UseAuthorization(); 
-app.MapGetAllStudents().MapPostCreatePayment(); 
+app.MapGetAllStudents()
+    .MapPostCreatePayment()
+    .MapProcessPayment(); 
 
 app.Run();
 

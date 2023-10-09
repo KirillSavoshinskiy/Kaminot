@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Subscription } from 'rxjs';
 import { Payment } from 'src/app/models/payment';
 import { PaymentSystem } from 'src/app/models/payment-system';
@@ -18,7 +19,8 @@ export class PaymentsListComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly paymentService: PaymentService
+    private readonly paymentService: PaymentService,
+    private readonly messageSevice: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,26 @@ export class PaymentsListComponent implements OnInit, OnDestroy {
       );
     } else {
       this.payments = this.initialPayments;
+    }
+  }
+
+  public pay(payment: Payment): void {
+    if (payment.status === 'Finished') {
+      this.messageSevice.error('That payment is already finished');
+    } else {
+      payment.status = 'In progress';
+      this.subs.add(
+        this.paymentService.processPayment(payment).subscribe(
+          (res: string) => {
+            this.messageSevice.success(res);
+            payment.status = 'Finished';
+          },
+          (err) => {
+            this.messageSevice.error(err.error);
+            payment.status = 'Active';
+          }
+        )
+      );
     }
   }
 }

@@ -21,7 +21,7 @@
             <p>Description: {{ payment.description }}</p>
             <p>Sum: {{ payment.amount }} {{ payment.currency.name }}</p>
             <p>State: {{ payment.status }}</p>
-            <button nz-button nzType="primary">Pay</button>
+            <button nz-button nzType="primary" (click)="pay(payment)">Pay</button>
           </nz-card>
         </div>
       </ng-container>

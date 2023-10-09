@@ -24,5 +24,12 @@ namespace WebApplication1.Data.Repositories
             await _dataContext.SaveChangesAsync();
             return payment;
         }
+
+        public async Task SetFinishedPaymentStatusAsync(Payment payment, CancellationToken token)
+        {
+            var p = _dataContext.Payments.FirstOrDefault(p => p.Id == payment.Id);
+            p.Status = "Finished";
+            await _dataContext.SaveChangesAsync();
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace WebApplication1.Services
     {
         Task<IList<PaymentSystem>> GetPaymentSystemsAsync();
         Task<Payment> CreatePayment(PaymentDto payment);
+        Task<string> ProcessPayment(Payment payment);
     }
 }

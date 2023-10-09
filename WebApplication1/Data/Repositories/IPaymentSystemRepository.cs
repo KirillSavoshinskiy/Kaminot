@@ -6,5 +6,6 @@ namespace WebApplication1.Data.Repositories
     {
         Task<IList<PaymentSystem>> GetAllPaymentSystemsAsync(CancellationToken token);
         Task<Payment> CreatePaymentAsync(Payment payment, int paymentSystemId, CancellationToken token);
+        Task SetFinishedPaymentStatusAsync(Payment payment, CancellationToken token);
     }
 }

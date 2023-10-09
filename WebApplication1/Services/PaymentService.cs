@@ -31,5 +31,12 @@ namespace WebApplication1.Services
              
             return await _mediator.Send(command);
         }
+
+        public async Task<string> ProcessPayment(Payment payment)
+        {
+            var command = new PayCommand { Payment = payment };
+
+            return await _mediator.Send(command);
+        }
     }
 }
