@@ -12,9 +12,9 @@ namespace WebApplication1.Data
 
             var pSystems = new List<PaymentSystem>
             {
-                new PaymentSystem { Name = "PayPal", Description = "Description" },
-                new PaymentSystem { Name = "Binance", Description = "Description" },
-                new PaymentSystem { Name = "WebMoney", Description = "Description" }
+                new PaymentSystem { Name = "PayPal", Description = "Description", Payments = new List<Payment>() },
+                new PaymentSystem { Name = "Binance", Description = "Description", Payments = new List<Payment>() },
+                new PaymentSystem { Name = "WebMoney", Description = "Description", Payments = new List<Payment>() }
             };
 
             await context.AddRangeAsync(pSystems);

@@ -47,11 +47,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection(); 
-app.UseAuthorization(); 
+app.UseAuthorization();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.MapGetAllStudents()
     .MapPostCreatePayment()
-    .MapProcessPayment(); 
-
+    .MapProcessPayment();
+app.MapFallbackToFile("index.html");
 app.Run();
 
 
