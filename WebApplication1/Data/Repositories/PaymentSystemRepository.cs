@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore; 
 using WebApplication1.Models;
 
 namespace WebApplication1.Data.Repositories
@@ -16,5 +16,13 @@ namespace WebApplication1.Data.Repositories
             .ThenInclude(c => c.Currency)
             .AsNoTracking()
             .ToListAsync(token);
+
+        public async Task<Payment> CreatePaymentAsync(Payment payment, int paymentSystemId, CancellationToken token)
+        {
+            var pSystem = await _dataContext.PaymentSystems.Include(p => p.Payments).FirstOrDefaultAsync(s => s.Id == paymentSystemId); 
+            pSystem?.Payments.Add(payment); 
+            await _dataContext.SaveChangesAsync();
+            return payment;
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using WebApplication1.Data;
 using WebApplication1.Data.Repositories;
+using WebApplication1.Endpoints.CreatePayment;
 using WebApplication1.Endpoints.GetAllPaymentSystems;
 using WebApplication1.Services;
 
@@ -45,7 +46,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection(); 
 app.UseAuthorization(); 
-app.MapGetAllStudents(); 
+app.MapGetAllStudents().MapPostCreatePayment(); 
 
 app.Run();
 
