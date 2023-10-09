@@ -14,15 +14,23 @@
   </div>
 
   <div nz-row [nzGutter]="8">
-    <ng-container *ngFor="let payment of payments">
-      <div nz-col [nzSpan]="6" class="mt-2">
-        <nz-card class="border border-2" nzTitle="{{ payment.name }}">
-          <p>Description: {{ payment.description }}</p>
-          <p>Sum: {{ payment.sum }} {{ payment.currency.name }}</p>
-          <p>State: {{ payment.status }}</p>
-          <button nz-button nzType="primary">Pay</button>
-        </nz-card>
-      </div>
+    <ng-container *ngIf="payments.length; else noPayments">
+      <ng-container *ngFor="let payment of payments">
+        <div nz-col [nzSpan]="6" class="mt-2">
+          <nz-card class="border border-2" nzTitle="{{ payment.name }}">
+            <p>Description: {{ payment.description }}</p>
+            <p>Sum: {{ payment.amount }} {{ payment.currency.name }}</p>
+            <p>State: {{ payment.status }}</p>
+            <button nz-button nzType="primary">Pay</button>
+          </nz-card>
+        </div>
+      </ng-container>
     </ng-container>
   </div>
 </div>
+
+<ng-template #noPayments>
+  <h5 nz-col [nzSpan]="24" class="text-center mt-2">
+    Sorry, but there are no payments yet.
+  </h5>
+</ng-template>

@@ -1,62 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Payment } from 'src/app/models/payment';
+import { PaymentSystem } from 'src/app/models/payment-system';
+import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
   selector: 'app-payments-list',
   templateUrl: './payments-list.component.html',
   styleUrls: ['./payments-list.component.css'],
 })
-export class PaymentsListComponent implements OnInit {
+export class PaymentsListComponent implements OnInit, OnDestroy {
   public paymentsStateFilter: string = 'All';
-  public source: Payment[] = [
-    {
-      id: 1,
-      paymentSystemId: 1,
-      name: 'Name1',
-      description: 'description',
-      sum: 100,
-      currency: { id: 1, name: 'USD', isCrypto: false },
-      status: 'In progress',
-    },
-    {
-      id: 1,
-      paymentSystemId: 1,
-      name: 'Name2',
-      description: 'description',
-      sum: 1003,
-      currency: { id: 1, name: 'USD', isCrypto: false },
-      status: 'Finished',
-    },
-    {
-      id: 1,
-      paymentSystemId: 1,
-      name: 'Name3',
-      description: 'description',
-      sum: 100,
-      currency: { id: 1, name: 'USD', isCrypto: false },
-      status: 'Active',
-    },
-    {
-      id: 1,
-      paymentSystemId: 1,
-      name: 'Name4',
-      description: 'description',
-      sum: 100,
-      currency: { id: 1, name: 'USD', isCrypto: false },
-      status: 'In progress',
-    }, 
-  ];
-  public payments: Payment[] = this.source;
+  public initialPayments: Payment[] = [];
+  public payments: Payment[] = [];
+  private subs = new Subscription();
 
-  ngOnInit(): void {}
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly paymentService: PaymentService
+  ) {}
+
+  ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (!this.paymentService.pSystems.length) {
+      this.subs.add(
+        this.paymentService
+          .getAllPaymentSystems()
+          .subscribe((res: PaymentSystem[]) => {
+            this.paymentService.pSystems = res;
+            this.initialPayments =
+              this.paymentService.pSystems.find((s) => s.id === id)?.payments ??
+              [];
+            this.payments = this.initialPayments;
+          })
+      );
+    } else {
+      this.initialPayments =
+        this.paymentService.pSystems.find((s) => s.id === id)?.payments ?? [];
+      this.payments = this.initialPayments;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
   public filterChanged(): void {
     if (this.paymentsStateFilter !== 'All') {
-      this.payments = this.source.filter(
+      this.payments = this.initialPayments.filter(
         (p) => p.status === this.paymentsStateFilter
       );
     } else {
-      this.payments = this.source;
+      this.payments = this.initialPayments;
     }
   }
 }
