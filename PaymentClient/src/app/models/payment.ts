@@ -1,11 +1,10 @@
 import { Currency } from "./currency";
 
 export interface Payment {
-    id: number;
-    paymentSystemId: number;
+    id: number; 
     name: string;
     description: string;
-    sum: number;
+    amount: number;
     currency: Currency;
     status: string;
 }
