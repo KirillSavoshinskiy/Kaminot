@@ -38,7 +38,8 @@ registerLocaleData(en);
     NzButtonModule,
     NzFormModule,
     NzSelectModule,
-    NzCardModule
+    NzCardModule,
+    HttpClientModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }
