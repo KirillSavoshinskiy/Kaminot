@@ -5,9 +5,9 @@ namespace WebApplication1.Services;
 
 public class PaymentProcessService : IPaymentProcessService
 {
-    private readonly IPaymentSystemRepository _paymentSystemRepository;
+    private readonly IPaymentSuffRepository _paymentSystemRepository;
 
-    public PaymentProcessService(IPaymentSystemRepository paymentSystemRepository) => _paymentSystemRepository = paymentSystemRepository;
+    public PaymentProcessService(IPaymentSuffRepository paymentSystemRepository) => _paymentSystemRepository = paymentSystemRepository;
      
     public async Task<string> ProcessPaymentAsync(Payment payment, CancellationToken cancellationToken)
     { 

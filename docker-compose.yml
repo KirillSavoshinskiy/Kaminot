@@ -1,11 +1,11 @@
 version: '3.7'
 
-services:
+services:  
   webapi:
     build:
-      context: .
+      context: ./WebApplication1
     ports:
-      - "8080:80"
+      - "2289:80"
     depends_on:
       - db
     environment:
@@ -17,9 +17,5 @@ services:
     environment:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydatabase
-    volumes:
-      - db-data:/var/lib/postgresql/data
-
-volumes:
-  db-data:
+      POSTGRES_DB: mydatabase 
+ 

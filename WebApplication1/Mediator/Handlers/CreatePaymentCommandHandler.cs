@@ -7,9 +7,9 @@ namespace WebApplication1.Mediator.Handlers
 {
     public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand, Payment>
     {
-        private readonly IPaymentSystemRepository _paymentSystemRepository;
+        private readonly IPaymentSuffRepository _paymentSystemRepository;
 
-        public CreatePaymentCommandHandler(IPaymentSystemRepository paymentSystemRepository) => _paymentSystemRepository = paymentSystemRepository;
+        public CreatePaymentCommandHandler(IPaymentSuffRepository paymentSystemRepository) => _paymentSystemRepository = paymentSystemRepository;
 
         public async Task<Payment> Handle(CreatePaymentCommand request, CancellationToken cancellationToken)
         {

@@ -2,7 +2,7 @@
 
 namespace WebApplication1.Data.Repositories
 {
-    public interface IPaymentSystemRepository
+    public interface IPaymentSuffRepository
     {
         Task<IList<PaymentSystem>> GetAllPaymentSystemsAsync(CancellationToken token);
         Task<Payment> CreatePaymentAsync(Payment payment, int paymentSystemId, CancellationToken token);

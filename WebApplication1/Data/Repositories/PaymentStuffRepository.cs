@@ -3,11 +3,11 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Data.Repositories
 {
-    public class PaymentSystemRepository : IPaymentSystemRepository
+    public class PaymentStuffRepository : IPaymentSuffRepository
     {
         private readonly DataContext _dataContext;
 
-        public PaymentSystemRepository(DataContext dataContext) => _dataContext = dataContext;
+        public PaymentStuffRepository(DataContext dataContext) => _dataContext = dataContext;
         
         public async Task<IList<PaymentSystem>> GetAllPaymentSystemsAsync(CancellationToken token) 
             => await _dataContext.PaymentSystems

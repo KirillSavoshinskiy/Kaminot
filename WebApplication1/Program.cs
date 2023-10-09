@@ -27,7 +27,7 @@ builder.Services.AddMediatR(cfg =>
 });
 
 builder.Services.AddScoped<IPaymentService, PaymentService>();
-builder.Services.AddScoped<IPaymentSystemRepository, PaymentSystemRepository>();
+builder.Services.AddScoped<IPaymentSuffRepository, PaymentStuffRepository>();
 builder.Services.AddScoped<IPaymentProcessService, PaymentProcessService>();
 
 var app = builder.Build();

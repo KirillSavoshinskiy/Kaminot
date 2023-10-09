@@ -7,9 +7,9 @@ namespace WebApplication1.Mediator.Handlers
 {
     public class GetAllPaymentSystemsQueryHandler : IRequestHandler<GetAllPaymentSystemsQuery, IList<PaymentSystem>>
     {
-        private readonly IPaymentSystemRepository _paymentSystemRepository;
+        private readonly IPaymentSuffRepository _paymentSystemRepository;
      
-        public GetAllPaymentSystemsQueryHandler(IPaymentSystemRepository paymentSystemRepository) => _paymentSystemRepository = paymentSystemRepository;
+        public GetAllPaymentSystemsQueryHandler(IPaymentSuffRepository paymentSystemRepository) => _paymentSystemRepository = paymentSystemRepository;
 
         public async Task<IList<PaymentSystem>> Handle(GetAllPaymentSystemsQuery request, CancellationToken cancellationToken)
             => await _paymentSystemRepository.GetAllPaymentSystemsAsync(cancellationToken);
